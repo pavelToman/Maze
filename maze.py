@@ -27,7 +27,7 @@ queue.append(list())
 queue[0].append(start)
 
 # Queue has levels
-# start coordinates are at queue_level=0
+# coordinates of the start are at queue_level=0
 queue_level = 0
 level = queue_level
 
@@ -36,8 +36,10 @@ shortest_path = list()
 
 # Checking functions
 # is it possible to go up/down/right/left and is it the finish?
-search_for_finish = True
-while search_for_finish:
+search_for_path = True
+road = " "
+
+while search_for_path:
     queue.append(list())  # creat next level of queue
     for coordinates in queue[level]:
         x, y = coordinates
@@ -49,9 +51,9 @@ while search_for_finish:
         if up_coordinates == finish:
             shortest_path.append(coordinates)
             queue.pop()
-            search_for_finish = False
+            search_for_path = False
         elif up_y_coordinate >= 0:
-            if up == " ":
+            if up == road:
                 next_level = level + 1
                 queue[next_level].append(up_coordinates)
                 maze[y-1][x] = next_level
@@ -63,9 +65,9 @@ while search_for_finish:
         if down_coordinates == finish:
             shortest_path.append(coordinates)
             queue.pop()
-            search_for_finish = False
+            search_for_path = False
         elif down_y_coordinates <= len(maze):
-            if down == " ":
+            if down == road:
                 next_level = level + 1
                 queue[next_level].append(down_coordinates)
                 maze[y+1][x] = next_level
@@ -77,9 +79,9 @@ while search_for_finish:
         if left_coordinates == finish:
             shortest_path.append(coordinates)
             queue.pop()
-            search_for_finish = False
+            search_for_path = False
         elif left_x_coordinates >= 0:
-            if left == " ":
+            if left == road:
                 next_level = level + 1
                 queue[next_level].append(left_coordinates)
                 maze[y][x-1] = next_level
@@ -91,9 +93,9 @@ while search_for_finish:
         if right_coordinates == finish:
             shortest_path.append(coordinates)
             queue.pop()
-            search_for_finish = False
+            search_for_path = False
         elif right_x_coordiantes <= len(maze[y]):
-            if right == " ":
+            if right == road:
                 next_level = level + 1
                 queue[next_level].append(right_coordinates)
                 maze[y][x+1] = next_level
@@ -101,7 +103,7 @@ while search_for_finish:
     # If there is no way to move - can't go trough the maze
     if not queue[-1]:
         print("There is no way from start do finish in this maze!")
-        search_for_finish = False
+        search_for_path = False
     # If I found field next to the finish
     # I can creat the shortest path
     elif len(shortest_path) != 0:
