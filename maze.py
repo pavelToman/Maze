@@ -1,6 +1,6 @@
 from load_maze import load_maze
 
-maze, start, finish = load_maze()
+maze, start, finish = load_maze("maze.txt")
 
 def main():
     # Queue of coordinates (x,y) of the road " " (space)
